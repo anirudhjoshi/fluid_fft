@@ -1,4 +1,4 @@
 fluid_fft
 =========
 
-An experiment with fluid dynamics and music visualization
+An experiment combining fluid dynamics and music visualization.
