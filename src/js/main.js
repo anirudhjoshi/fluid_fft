@@ -1,4 +1,4 @@
-// Uses code from http://airtightinteractive.com/demos/js/reactive/
+// Uses code from http://airtightinteractive.com/demos/js/reactive/ by Felix Turner
 
 var colors;
 
