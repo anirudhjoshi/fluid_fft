@@ -56,6 +56,7 @@ a:active {color:#e55e5f;}  /* selected link */
 
 canvas {
 
+	padding-top: 2em;	
 	height: 28em;
 	
 }
