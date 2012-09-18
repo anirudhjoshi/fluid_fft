@@ -62,14 +62,20 @@ canvas {
 
 .b_wrapper {
 
-	padding-top: 1em;
+	padding-top: 4em;
 	margin: 0 auto;
+
+}
+
+h2 {
+
+	padding-top: 1em;
 
 }
 
 .details {
 
-	
+	padding-top: 1em;
 
 }
 
