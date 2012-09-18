@@ -137,7 +137,7 @@ function prepareFrame(field){
 			if ( i == 8)
 				console.log( Math.abs(sum - old_sum) / sum );
 
-			if ( Math.abs(sum - old_sum) / sum > 4 ){
+			if ( Math.abs(sum - old_sum) / sum > 10 ){
 
 				field.setVelocity( 8 + i*16, 1, 0, 500 );	
 				field.setVelocity( 88-i*16, canvas.height -1, 0, -500 );
