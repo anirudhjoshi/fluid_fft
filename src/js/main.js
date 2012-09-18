@@ -12,12 +12,17 @@ var source, analyser, audioContext, audioBuffer;
 var freqByteData;
 var timeByteData;			
 var VOL_SENS = 2;	
-var buffer;
+var buffer, old_buffer;
 
+function arrayToRGBA( a ){
+
+	return "rgba(" + Math.floor( a[0] ) + "," + Math.floor( a[1] ) + "," + Math.floor( a[2] ) + "," + "0.4" + ")";
+
+}
 
 function drawRectangle( x, y, width, height, color ) {
 
-	ctx.fillStyle = color;
+	ctx.fillStyle = arrayToRGBA( color );
 	ctx.fillRect( x, y, width, height );
 	
 };
@@ -109,8 +114,8 @@ function prepareFrame(field){
 
 			if ( j == 64 ){
 
-				// drawRectangle((i/32)*4, 10, 4, sum/250, "white");
-				buffer[index] = sum;	
+				old_buffer[index] = buffer[index];
+				buffer[index] = sum;
 
 				index++;
 
@@ -127,8 +132,13 @@ function prepareFrame(field){
 		for (var i = 0; i < buffer.length; i++){
 
 			var sum = buffer[i];
+			var old_sum = old_buffer[i];
 
-			if ( sum > 240 ){
+			if ( i == 8)
+				console.log( Math.abs(sum - old_sum) / sum );
+
+			if ( Math.abs(sum - old_sum) / sum > 2 ){
+
 				field.setVelocity( 8 + i*16, 1, 0, 500 );	
 				field.setVelocity( 88-i*16, canvas.height -1, 0, -500 );
 
@@ -212,6 +222,7 @@ function initArrays(){
 	timeByteData = new Uint8Array(analyser.frequencyBinCount);		
 
 	buffer = new Uint8Array(8);
+	old_buffer = new Uint8Array(8);
 
 }
 
@@ -242,6 +253,8 @@ function begin() {
 	fluid.setResolution(r, r);
 
 	audioContext = new window.webkitAudioContext();
+	buffer = new Uint8Array(8);
+	old_buffer = new Uint8Array(8);
 	// loadSampleAudio();
 
 	document.addEventListener('drop', onDocumentDrop, false);
@@ -276,7 +289,16 @@ function updateFrame() {
 	
 	if ( running ) {
 
-		fluid.update();    					
+		fluid.update();
+
+		// for (var i = 0; i < buffer.length; i++){
+
+			// var sum = buffer[i];
+
+			// drawRectangle( 5 + i*16, 0, 8, sum/10, colors.colors[3]);
+			// drawRectangle( 85 - i*16, canvas.height - sum/10, 8, sum/10, colors.colors[2]);
+
+		// }
 
 	}
 	
